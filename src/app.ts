@@ -1,3 +1,4 @@
+
 import * as Twitter from 'twitter';
 import * as dotenv from 'dotenv';
 
@@ -27,6 +28,24 @@ async function main(){
         console.log(`[${statuses[key].created_at}] ${statuses[key].user.name}: ${statuses[key].text}`)
     }
     */
+   /*検索した一番１つめのツイートと同じ内容をツイートするコードを書く*/
+}
+/*指定したユーザーのお気に入り取得*/
+async function get_favorite(){
+    const favorite = await client.get('favorite/list',{screen_name: '8P2aZMskK2FdUbF',count: 5});
+    console.log(favorite);
+
+}
+async function copy_tweet(){
+    const tweet = await client.get('search/tweets',{ q: 'from:8P2aZMskK2FdUbF'});
+    const statuses = tweet.statuses;
+    console.log(statuses[0]);
+
+    await client.post('statuses/update',{status: statuses[0].text});
+
+
+
 }
 
-main();
+
+copy_tweet();
